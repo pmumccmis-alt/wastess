@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>EcoSort AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module">
+    import { InferenceClient } from "https://cdn.jsdelivr.net/npm/@huggingface/inference@3.1.2/+esm";
+    window.InferenceClient = InferenceClient;
+  </script>
   <style>
     :root {
       --bg-color: #f4f7f6;
@@ -13,7 +17,6 @@
       --text-main: #1f2937;
       --text-muted: #6b7280;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
     .app-container { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); overflow: hidden; display: flex; flex-direction: column; }
@@ -90,46 +93,31 @@
       if (!fileInput.files[0]) return;
       const file = fileInput.files[0];
       
-      // Clean target API endpoint
-      const TARGET_API = "https://api-inference.huggingface.co/models/YangC99/vit-waste-classification";
-      
-      // ⚠️ IMPORTANT: Paste your brand-new secret Hugging Face token right here inside the quotes!
+      // ⚠️ IMPORTANT: Paste your brand-new secret Hugging Face token here!
       const API_TOKEN = "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"; 
+      const MODEL_NAME = "YangC99/vit-waste-classification";
 
-      resultDiv.innerHTML = `<div class="status-text">Analyzing composition... ⏳<br><small style="color:gray;">(If this takes a while, the AI model server is turning on)</small></div>`;
+      resultDiv.innerHTML = `<div class="status-text">Analyzing composition... ⏳<br><small style="color:gray;">(Processing secure SDK handshake)</small></div>`;
       analyzeBtn.disabled = true;
 
       try {
         if (API_TOKEN.includes("PASTE_YOUR") || API_TOKEN === "") {
-          throw new Error("Missing Token: Please insert your real Hugging Face API Token inside the script on line 124!");
+          throw new Error("Missing Token: Please put your real token inside the script on line 119!");
+        }
+        if (!window.InferenceClient) {
+          throw new Error("SDK Initialization error. Please refresh the page and try again.");
         }
 
-        // Convert file data directly to blob stream for clean cross-origin delivery
-        const fileBlob = new Blob([await file.arrayBuffer()], { type: file.type });
+        // Initialize the safe client structure
+        const client = new window.InferenceClient(API_TOKEN.trim());
+        const imageData = await file.arrayBuffer();
 
-        const response = await fetch(TARGET_API, {
-          method: "POST",
-          headers: { 
-            "Authorization": `Bearer ${API_TOKEN.trim()}`
-          },
-          body: fileBlob
+        // SDK Call handles CORS headers dynamically
+        const result = await client.imageClassification({
+          model: MODEL_NAME,
+          data: imageData
         });
 
-        // Parse JSON error data securely if the response comes back broken
-        if (!response.ok) {
-          let errorMsg = `Server error code: ${response.status}`;
-          try {
-            const errData = await response.json();
-            if (errData.error) errorMsg = errData.error;
-          } catch(e) {}
-          
-          if (response.status === 503 || errorMsg.includes("loading")) {
-            throw new Error("AI Model is waking up from its sleep cycle. Please wait 15 seconds and click 'Check Segregation' again!");
-          }
-          throw new Error(errorMsg);
-        }
-
-        const result = await response.json();
         resultDiv.innerHTML = ''; 
 
         if (Array.isArray(result) && result.length > 0) {
@@ -149,11 +137,15 @@
             resultDiv.appendChild(predRow);
           });
         } else {
-          throw new Error("Invalid or empty classification response received from the model.");
+          throw new Error("Invalid or empty classification response received from model endpoint.");
         }
 
       } catch (error) {
-        resultDiv.innerHTML = `<div class="status-text" style="color: #ef4444; font-weight: 600;">⚠️ Connection Alert:<br><span style="font-size:13px; font-weight:400; color:#374151;">${error.message}</span></div>`;
+        if (error.message.includes("loading") || error.message.includes("503")) {
+          resultDiv.innerHTML = `<div class="status-text" style="color: #f59e0b; font-weight: 600;">⏳ AI Server Waking Up:<br><span style="font-size:13px; font-weight:400; color:#374151;">The model is loading onto Hugging Face resources. Please try checking again in 15 seconds!</span></div>`;
+        } else {
+          resultDiv.innerHTML = `<div class="status-text" style="color: #ef4444; font-weight: 600;">⚠️ Connection Alert:<br><span style="font-size:13px; font-weight:400; color:#374151;">${error.message}</span></div>`;
+        }
       } finally {
         analyzeBtn.disabled = false;
       }
