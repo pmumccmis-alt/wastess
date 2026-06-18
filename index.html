@@ -8,199 +8,34 @@
     :root {
       --bg-color: #f4f7f6;
       --card-bg: #ffffff;
-      --primary: #10b981; /* Emerald Green */
+      --primary: #10b981;
       --primary-hover: #059669;
       --text-main: #1f2937;
       --text-muted: #6b7280;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 16px;
-    }
-
-    /* Mobile App Container */
-    .app-container {
-      width: 100%;
-      max-width: 420px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    .app-header {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      padding: 32px 24px;
-      text-align: center;
-    }
-
-    .app-header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .app-header p {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
-
-    /* Body/Content */
-    .app-body {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* Upload/Camera Card */
-    .upload-card {
-      border: 2px dashed #cbd5e1;
-      border-radius: 16px;
-      padding: 30px 20px;
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.2s ease;
-      background: #f8fafc;
-    }
-
-    .upload-card:active, .upload-card:hover {
-      border-color: var(--primary);
-      background: #f0fdf4;
-    }
-
-    /* Hide default input but keep accessible over card area */
-    #imageUpload {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .upload-icon {
-      font-size: 40px;
-      margin-bottom: 8px;
-      display: inline-block;
-    }
-
-    .upload-text {
-      font-size: 15px;
-      font-weight: 600;
-      color: #475569;
-    }
-
-    .upload-subtext {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Image Preview */
-    .preview-container {
-      width: 100%;
-      height: 200px;
-      border-radius: 12px;
-      overflow: hidden;
-      display: none;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-      background-color: #000;
-    }
-
-    .preview-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Action Button */
-    .btn-action {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      width: 100%;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-    }
-
-    .btn-action:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .btn-action:disabled {
-      background-color: #cbd5e1;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-
-    /* Results UI */
-    .results-container {
-      margin-top: 10px;
-    }
-
-    .status-text {
-      text-align: center;
-      font-size: 15px;
-      color: var(--text-muted);
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    /* Prediction Rows */
-    .pred-row {
-      margin-bottom: 14px;
-    }
-
-    .pred-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #374151;
-    }
-
-    .progress-bar-bg {
-      background-color: #e5e7eb;
-      border-radius: 999px;
-      height: 8px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      background: linear-gradient(90deg, #34d399, #10b981);
-      height: 100%;
-      border-radius: 999px;
-      width: 0%;
-      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+    .app-container { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); overflow: hidden; display: flex; flex-direction: column; }
+    .app-header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 32px 24px; text-align: center; }
+    .app-header h1 { font-size: 24px; font-weight: 700; }
+    .app-header p { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+    .app-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .upload-card { border: 2px dashed #cbd5e1; border-radius: 16px; padding: 30px 20px; text-align: center; cursor: pointer; position: relative; background: #f8fafc; }
+    #imageUpload { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .upload-icon { font-size: 40px; margin-bottom: 8px; display: inline-block; }
+    .upload-text { font-size: 15px; font-weight: 600; color: #475569; }
+    .upload-subtext { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .preview-container { width: 100%; height: 200px; border-radius: 12px; overflow: hidden; display: none; background-color: #000; }
+    .preview-container img { width: 100%; height: 100%; object-fit: cover; }
+    .btn-action { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 16px; font-weight: 600; width: 100%; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+    .btn-action:hover { background-color: var(--primary-hover); }
+    .btn-action:disabled { background-color: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+    .status-text { text-align: center; font-size: 15px; color: var(--text-muted); font-weight: 500; line-height: 1.4; }
+    .pred-row { margin-bottom: 14px; }
+    .pred-info { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+    .progress-bar-bg { background-color: #e5e7eb; border-radius: 999px; height: 8px; width: 100%; overflow: hidden; }
+    .progress-bar-fill { background: linear-gradient(90deg, #34d399, #10b981); height: 100%; border-radius: 999px; width: 0%; transition: width 0.6s ease; }
   </style>
 </head>
 <body>
@@ -224,7 +59,6 @@
       </div>
 
       <button class="btn-action" id="analyzeBtn" onclick="classifyImage()" disabled>Check Segregation</button>
-
       <div class="results-container" id="result"></div>
     </div>
   </div>
@@ -237,66 +71,70 @@
     const analyzeBtn = document.getElementById('analyzeBtn');
     const resultDiv = document.getElementById('result');
 
-    // Handle preview and configuration changes instantly when a photo is taken/uploaded
     fileInput.addEventListener('change', function() {
       if (this.files && this.files[0]) {
         const reader = new FileReader();
-        
         reader.onload = function(e) {
           imagePreview.src = e.target.result;
           previewContainer.style.display = 'block';
-          
-          // Tighten layout padding to fit inside device frame perfectly
           uploadCard.style.padding = '15px 20px';
           uploadCard.querySelector('.upload-subtext').innerText = "Tap to change photo";
-          
           analyzeBtn.disabled = false;
           resultDiv.innerHTML = ''; 
         }
-        
         reader.readAsDataURL(this.files[0]);
       }
     });
 
     async function classifyImage() {
       if (!fileInput.files[0]) return;
-
       const file = fileInput.files[0];
       
-      const API_URL = "https://api-inference.huggingface.co/models/Riverxh/vit-waste-segregation-classifier";
+      // Clean target API endpoint
+      const TARGET_API = "https://api-inference.huggingface.co/models/YangC99/vit-waste-classification";
+      
+      // ⚠️ IMPORTANT: Paste your brand-new secret Hugging Face token right here inside the quotes!
       const API_TOKEN = "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"; 
 
-      resultDiv.innerHTML = `<div class="status-text">Analyzing composition... ⏳</div>`;
+      resultDiv.innerHTML = `<div class="status-text">Analyzing composition... ⏳<br><small style="color:gray;">(If this takes a while, the AI model server is turning on)</small></div>`;
       analyzeBtn.disabled = true;
 
       try {
-        // Convert input data into direct machine binary stream
-        const imageData = await file.arrayBuffer();
+        if (API_TOKEN.includes("PASTE_YOUR") || API_TOKEN === "") {
+          throw new Error("Missing Token: Please insert your real Hugging Face API Token inside the script on line 124!");
+        }
 
-        const response = await fetch(API_URL, {
+        // Convert file data directly to blob stream for clean cross-origin delivery
+        const fileBlob = new Blob([await file.arrayBuffer()], { type: file.type });
+
+        const response = await fetch(TARGET_API, {
           method: "POST",
           headers: { 
-            "Authorization": `Bearer ${API_TOKEN}`,
-            "Content-Type": "application/octet-stream"
+            "Authorization": `Bearer ${API_TOKEN.trim()}`
           },
-          body: imageData
+          body: fileBlob
         });
 
+        // Parse JSON error data securely if the response comes back broken
         if (!response.ok) {
-          // Model cold start check (Code 503)
-          if (response.status === 503) {
-            throw new Error("Model is waking up from idle mode. Please click 'Check Segregation' again in 15 seconds!");
+          let errorMsg = `Server error code: ${response.status}`;
+          try {
+            const errData = await response.json();
+            if (errData.error) errorMsg = errData.error;
+          } catch(e) {}
+          
+          if (response.status === 503 || errorMsg.includes("loading")) {
+            throw new Error("AI Model is waking up from its sleep cycle. Please wait 15 seconds and click 'Check Segregation' again!");
           }
-          throw new Error(`Server returned status: ${response.status}`);
+          throw new Error(errorMsg);
         }
 
         const result = await response.json();
         resultDiv.innerHTML = ''; 
 
-        if (Array.isArray(result)) {
+        if (Array.isArray(result) && result.length > 0) {
           result.forEach(pred => {
             const percentage = (pred.score * 100).toFixed(1);
-            
             const predRow = document.createElement('div');
             predRow.className = 'pred-row';
             predRow.innerHTML = `
@@ -311,15 +149,15 @@
             resultDiv.appendChild(predRow);
           });
         } else {
-          resultDiv.innerHTML = `<div class="status-text">Model setup structure incomplete. Please re-trigger submission.</div>`;
+          throw new Error("Invalid or empty classification response received from the model.");
         }
 
       } catch (error) {
-        resultDiv.innerHTML = `<div class="status-text" style="color: #ef4444;">${error.message}</div>`;
+        resultDiv.innerHTML = `<div class="status-text" style="color: #ef4444; font-weight: 600;">⚠️ Connection Alert:<br><span style="font-size:13px; font-weight:400; color:#374151;">${error.message}</span></div>`;
       } finally {
         analyzeBtn.disabled = false;
       }
     }
   </script>
 </body>
-</html> 
+</html>
